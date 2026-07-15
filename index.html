@@ -292,26 +292,19 @@
         </div>
 
         <div class="analysis-block">
-            <h2 class="analysis-title">Ce que nous disent les lycéens — Analyse globale</h2>
+            <h2 class="analysis-title">Ce que nous disent les lycéens | Analyse globale</h2>
 
             <div class="analysis-section">
                 <h3>Une école perçue comme insuffisamment préparatrice</h3>
                 <p>
-                    La majorité des <strong>202 lycéens</strong> interrogés (49%) donnent un score de <strong>3 sur 5</strong> à la capacité de l'école à les préparer pour la vie d'après, 
-                    et 16% donnent un score de 2. Moins d'un lycéen sur dix (5%) se sent <em>très bien</em> préparé. 
-                    Ce sentiment de préparation insuffisante est cohérent avec le fait que <strong>57% aimeraient apprendre des soft skills</strong> 
-                    (communication, gestion du stress, coopération) — des compétences souvent absentes des programmes scolaires classiques — 
-                    et que 90% se montrent intéressés ou ouverts aux cours pratiques (robotique, mécanique, arts de la maison...).
+                    La majorité des <strong>202 lycéens</strong> interrogés (49%) donnent un score de <strong>3 sur 5</strong> à la capacité de l'école à les préparer pour la vie d'après, et 16% donnent un score de 2. Moins d'un lycéen sur dix (5%) se sent <em>très bien</em> préparé. Ce sentiment de préparation insuffisante est cohérent avec le fait que <strong>57% aimeraient apprendre des soft skills</strong> (communication, gestion du stress, coopération). Ces compétences sont souvent absentes des programmes scolaires classiques, alors même que 90% se montrent intéressés ou ouverts aux cours pratiques (robotique, mécanique, arts de la maison...).
                 </p>
             </div>
 
             <div class="analysis-section">
                 <h3>Un avenir qui inquiète plus qu'il n'enthousiasme</h3>
                 <p>
-                    Face à l'avenir, le ressenti dominant est la <strong>neutralité anxieuse</strong> : 37% se situent à 3 sur 5, 
-                    tandis que 32% se sentent clairement anxieux (scores 1 et 2). Seulement 11% se déclarent vraiment confiants (score 5). 
-                    Cette anxiété se traduit dans les projets post-HSC : <strong>66% envisagent de partir étudier à l'étranger</strong>, 
-                    dont 21% sans intention de revenir. À peine 10% souhaitent rester étudier à Maurice.
+                    Face à l'avenir, le ressenti dominant est la <strong>neutralité anxieuse</strong> : 37% se situent à 3 sur 5, tandis que 32% se sentent clairement anxieux (scores 1 et 2). Seulement 11% se déclarent vraiment confiants (score 5). Cette anxiété se traduit dans les projets post-HSC : <strong>66% envisagent de partir étudier à l'étranger</strong>, dont 21% sans intention de revenir. À peine 10% souhaitent rester étudier à Maurice.
                 </p>
             </div>
 
@@ -600,7 +593,8 @@
                 return item;
             });
 
-            csvData = csvData.filter(row => Object.values(row).some(v => v));
+            // LIMITE STRICTE À 202 RÉPONSES ICI
+            csvData = csvData.filter(row => Object.values(row).some(v => v)).slice(0, 202);
             document.getElementById('loadingDiv').style.display = 'none';
             
             if (csvData.length === 0) {
@@ -668,6 +662,7 @@
         if (gamesCol) createChart('chartGames', '', countValues(csvData, gamesCol), 'doughnut');
     }
 
+    // [Reste des fonctions d'analyse inchangé]
     function renderSchool() {
         const likesCol = findCol('plaît dans les cours');
         if (likesCol) createChart('chartLikes', '', countMultipleAnswers(csvData, likesCol), 'horizontalBar');
